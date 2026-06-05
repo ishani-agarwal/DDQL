@@ -79,6 +79,7 @@ class MarketEnvironnement:
         self.current_episode = 0
         self.multi_episodes = multi_episodes
         self.quadratic_penalty_coefficient = quadratic_penalty_coefficient
+        self.lambda_risk = lambda_risk 
         self.horizon = n_periods
 
         self.preprocessor = Preprocessor(
