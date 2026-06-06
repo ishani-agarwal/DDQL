@@ -15,7 +15,7 @@ def get_trading_dates(start, end):
         current += timedelta(days=1)
     return dates
 
-tickers = ['JNJ', 'UNH', 'LLY', 'MDT', 'NVO', 'PFE', 'ABT', 'MRNA', 'DGX']
+tickers = ['JNJ', 'UNH', 'LLY', 'MDT', 'NVO', 'PFE', 'ABT', 'ABBV', 'DGX']
 dates = get_trading_dates('2017-01-02', '2018-03-30')
 
 print(f"Trading days: {len(dates)}, Total queries: {len(dates) * len(tickers)}", flush=True)
@@ -55,7 +55,7 @@ for ticker in tickers:
         )
         ticker_df = (ticker_df
             .set_index('timestamp')
-            .resample('1S')['mid_price']
+            .resample('1s')['mid_price']
             .last()
             .dropna()
             .reset_index()
