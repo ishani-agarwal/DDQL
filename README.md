@@ -14,7 +14,7 @@ pip install wrds
 
 ### 3. Get the data
 Download from Google Drive: https://drive.google.com/drive/folders/1Qphnfm6AKNq-kAaIWUEfIi85BUnOcN1G?usp=drive_link
-unzip data_split.zip
+unzip data_split.zip INTO THE REPO ROOT
 
 ### 4. Run the notebook
 Open `notebooks/draft.ipynb` and run all cells.
