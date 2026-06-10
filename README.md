@@ -13,7 +13,7 @@ pip install -r requirements.txt
 pip install wrds
 
 ### 3. Get the data
-Download from Google Drive: PASTE_LINK_HERE
+Download from Google Drive: https://drive.google.com/drive/folders/1Qphnfm6AKNq-kAaIWUEfIi85BUnOcN1G?usp=drive_link
 unzip data_split.zip
 
 ### 4. Run the notebook
