@@ -1,21 +1,26 @@
-<center>
+# DDQL Optimal Execution
 
-# DDQL-optimal-execution
-Double Deep Q-Learning for Optimal Execution implementation
+Replication and extension of Ning et al. (2020) using healthcare stocks and a risk-averse reward modification.
 
+## Quickstart
 
+### 1. Clone the repo
+git clone https://github.com/ishani-agarwal/DDQL.git
+cd DDQL
 
+### 2. Install dependencies
+pip install -r requirements.txt
+pip install wrds
 
-[![pytest](https://img.shields.io/github/actions/workflow/status/g0bel1n/DDQL-optimal-execution/tests.yml?label=Tests&style=for-the-badge)](https://github.com/g0bel1n/DDQL-optimal-execution/actions/workflows/tests.yml)  [![ Hey](https://img.shields.io/github/actions/workflow/status/g0bel1n/DDQL-optimal-execution/sphinx.yml?label=docs&style=for-the-badge)](https://github.com/g0bel1n/DDQL-optimal-execution/actions/workflows/sphinx.yml)
+### 3. Get the data
+Download from Google Drive: PASTE_LINK_HERE
+unzip data_split.zip
 
-</center>
+### 4. Run the notebook
+Open `notebooks/draft.ipynb` and run all cells.
 
-Documentation with quickstart and installation guide : [here](https://g0bel1n.github.io/DDQL-optimal-execution/index.html)
-
-# Notes
-
-- Action space is taken as an integer to avoid minimization
-
-# Bibliography
-
-Ning, B., Lin, F.H.T. and Jaimungal, S. (2020) Double deep Q-learning for optimal execution, arXiv.org. Available at: https://arxiv.org/abs/1812.06600 (Accessed: April 16, 2023). 
+## Data
+- `data/train/` — 6761 training episodes (Jan 2017 - Dec 2017)
+- `data/test/` — 1647 test episodes (Jan 2018 - Mar 2018)
+- 9 healthcare stocks: JNJ, UNH, LLY, MDT, NVO, PFE, ABT, ABBV, DGX
+- Source: NYSE TAQ millisecond data via WRDS
