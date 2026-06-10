@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 
-os.makedirs('data/raw', exist_ok=True)
+os.makedirs('/Users/stuti/DDQL/data/raw', exist_ok=True)
 
 def get_trading_dates(start, end):
     dates = []
@@ -25,7 +25,7 @@ conn = wrds.Connection(wrds_username='snpatel7')
 failed = []
 
 for ticker in tickers:
-    if os.path.exists(f'data/raw/{ticker}_raw.csv'):
+    if os.path.exists(f'/Users/stuti/DDQL/data/raw/{ticker}_raw.csv'):
         print(f"⏭ {ticker}: already exists, skipping", flush=True)
         continue
 
@@ -60,7 +60,7 @@ for ticker in tickers:
             .dropna()
             .reset_index()
         )
-        ticker_df.to_csv(f'data/raw/{ticker}_raw.csv', index=False)
+        tticker_df.to_csv(f'/Users/stuti/DDQL/data/raw/{ticker}_raw.csv', index=False)
         print(f"✓ {ticker}: {len(ticker_df)} seconds saved", flush=True)
 
 print(f"\nFailed: {len(failed)}", flush=True)

@@ -70,6 +70,7 @@ class MarketEnvironnement:
         data_path: str = "../data",
         n_periods: int = 5,
         quadratic_penalty_coefficient: float = 0.01,
+        lambda_risk: float = 0,
         multi_episodes: bool = False,
         **kwargs,
     ) -> None:

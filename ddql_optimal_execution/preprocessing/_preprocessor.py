@@ -118,9 +118,9 @@ class Preprocessor:
         if self.volume:
             if "volume" not in df.columns:
                 raise ValueError("Volume data is not present in the DataFrame.")
-        else :
-            df = df.drop("volume", axis = 1) 
-
+        else:
+            if "volume" in df.columns:
+                df = df.drop("volume", axis=1)
 
 
         df = df.iloc[1:]
