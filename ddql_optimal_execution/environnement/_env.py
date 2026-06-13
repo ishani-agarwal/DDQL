@@ -234,56 +234,11 @@ class MarketEnvironnement:
 
         return self.state.copy() if copy else self.state
 
-    # def __compute_reward(self, action: int) -> float:
-    #     """This function computes the reward for a given action based on the current inventory and historical
-    #     price data.
-
-    #     Parameters
-    #     ----------
-    #     action : int
-    #         The input parameter `action` is an integer representing the number of shares to sell at each
-    #     time step.
-
-    #     Returns
-    #     -------
-    #         The function `__compute_reward` returns a float value which represents the reward calculated based
-    #     on the given action and the current state of the environment.
-
-    #     """
-    #     inventory = self.state["inventory"]
-    #     intra_time_steps_prices = self.historical_data[
-    #         self.historical_data.period == self.state["period"]
-    #     ].Price.values
-    #     len_ts = len(intra_time_steps_prices)
-    #     reward = 0
-    #     pnl_comp = 0
-    #     for p1, p2, true_p in zip(
-    #         intra_time_steps_prices[:-1],
-    #         intra_time_steps_prices[1:],
-    #         self.get_current_raw_price(),
-    #     ):
-    #         inventory -= action / len_ts
-    #         reward += (
-    #             inventory * (p2 - p1)
-    #             - self.quadratic_penalty_coefficient
-    #             * (action / ((self.initial_inventory + 1) * len_ts)) ** 2
-    #         )
-    #         pnl_comp += (
-    #             inventory * p2
-    #             - self.quadratic_penalty_coefficient
-    #             * (action / ((self.initial_inventory + 1) * len_ts)) ** 2
-    #         )
-
-    #     self.pnl_for_episode.append(pnl_comp)
-
-    #     return reward
-
-
 
 
     def __compute_reward(self, action: int) -> float:
         """This function computes the reward for a given action based on the current inventory and historical
-        price data, adjusted dynamically for local market volatility (Method B).
+        price data, adjusted dynamically for local market volatility
 
         Parameters
         ----------
@@ -299,7 +254,6 @@ class MarketEnvironnement:
         """
         inventory = self.state["inventory"]
         
-        # 1. EXTRACT CURRENT PERIOD'S MARKET VOLATILITY (QV) FROM THE STATE
         current_qv = self.state["QV"] if "QV" in self.state else 0.0
         
         # Fallback to check if self.lambda_risk was initialized, default to 0.005 if not
@@ -319,11 +273,9 @@ class MarketEnvironnement:
         ):
             inventory -= action / len_ts
             
-            # 2. CALCULATE METHOD B VARIANCE PENALTY TERM
             # lambda * inventory^2 * market_qv (divided by len_ts to scale evenly per second)
             variance_penalty = (lambda_risk * (inventory ** 2) * current_qv) / len_ts
             
-            # 3. APPLY PENALTY TO THE AGENT'S REWARD (SAVES CASH DURING VOLATILITY)
             reward += (
                 inventory * (p2 - p1)
                 - self.quadratic_penalty_coefficient
@@ -331,8 +283,6 @@ class MarketEnvironnement:
                 - variance_penalty  # <-- INJECTED NEW VARIANCE TERM HERE
             )
             
-            # We keep the variance penalty OUT of pnl_comp so that your final metrics 
-            # and charts still accurately show your real-world cash returns.
             pnl_comp += (
                 inventory * p2
                 - self.quadratic_penalty_coefficient
